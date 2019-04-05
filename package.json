@@ -1,15 +1,14 @@
 {
   "name": "CRUD",
   "version": "1.0.0",
-  "description": "",
   "main": "src",
   "scripts": {
     "dev": "nodemon .",
     "start": "node ."
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "PaulloClara",
+  "license": "MIT",
   "dependencies": {
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
