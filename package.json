@@ -1,0 +1,19 @@
+{
+  "name": "CRUD",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src",
+  "scripts": {
+    "dev": "nodemon .",
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
