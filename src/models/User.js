@@ -1,4 +1,4 @@
-const mogoose = require('../config/mongoose')
+const mongoose = require('../config/mongoose')
 
 const UserSchema = mongoose.Schema({
   firstName: {
@@ -8,6 +8,12 @@ const UserSchema = mongoose.Schema({
   secondName: {
     type: String,
     required: true
+  },
+  userName: {
+    type: String,
+    required: true,
+    unique: true,
+    select: false
   },
   password: {
     type: String,
