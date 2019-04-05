@@ -14,3 +14,8 @@ yarn run dev
 ```
 yarn run start
 ```
+
+### Insomnia configuration file
+```
+Application>Preferences>Data>ImportData>FromFile>CRUD_Insomnia.json
+```
