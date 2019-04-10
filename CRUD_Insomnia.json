@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-04-05T22:16:15.077Z",
+	"__export_date": "2019-04-10T14:20:11.655Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -42,11 +42,17 @@
 			"body": {},
 			"created": 1554478751143,
 			"description": "",
-			"headers": [],
+			"headers": [
+				{
+					"id": "pair_1d2fb1b54cda4ccebb40a2c933409692",
+					"name": "token",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWRmMmQ4OWU1ZDA3MjZiMWM2NDRmNSIsImlhdCI6MTU1NDkwMzc2OCwiZXhwIjoxNTU0OTkwMTY4fQ.-41xDbvluaXRvZk0uJfU9xRwGn9nY3BpDJ3RKsYAaXI"
+				}
+			],
 			"isPrivate": false,
 			"metaSortKey": -1554478782552,
 			"method": "GET",
-			"modified": 1554480616781,
+			"modified": 1554903800830,
 			"name": "Root",
 			"parameters": [],
 			"parentId": "wrk_8b06390d2669441cafe1591af957f1a2",
@@ -65,43 +71,17 @@
 			"body": {},
 			"created": 1554478782502,
 			"description": "",
-			"headers": [],
-			"isPrivate": false,
-			"metaSortKey": -1554478782502,
-			"method": "GET",
-			"modified": 1554502399933,
-			"name": "User",
-			"parameters": [],
-			"parentId": "wrk_8b06390d2669441cafe1591af957f1a2",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ baseURL  }}/user/paulloclara",
-			"_type": "request"
-		},
-		{
-			"_id": "req_c8aef8beebef48cda5b113a836e74196",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"firstName\": \"Paullo\",\n\t\"secondName\": \"Clara\",\n\t\"userName\": \"PaulloClara\",\n\t\"password\": \"123\"\n}"
-			},
-			"created": 1554480608301,
-			"description": "",
 			"headers": [
 				{
-					"id": "pair_dc68918385d149d0b2eee18b965f3172",
-					"name": "Content-Type",
-					"value": "application/json"
+					"id": "pair_3dc267ff679241eb9333c97c84569089",
+					"name": "token",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWRmOTE5OGEwZDljMjhkODdlOTYyMCIsImlhdCI6MTU1NDkwNTcyMSwiZXhwIjoxNTU0OTkyMTIxfQ.PNZkW3hTIbqI7hVaNrMTY1DtvRv3EHOY3MDk52v_uDE"
 				}
 			],
 			"isPrivate": false,
-			"metaSortKey": -1554478766823,
-			"method": "POST",
-			"modified": 1554502387076,
+			"metaSortKey": -1554478782502,
+			"method": "GET",
+			"modified": 1554905769084,
 			"name": "User",
 			"parameters": [],
 			"parentId": "wrk_8b06390d2669441cafe1591af957f1a2",
@@ -115,6 +95,38 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_c8aef8beebef48cda5b113a836e74196",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"firstName\": \"Paullo\",\n\t\"secondName\": \"Clara\",\n\t\"userName\": \"PaulloClara\",\n\t\"password\": \"12345\"\n}"
+			},
+			"created": 1554480608301,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_dc68918385d149d0b2eee18b965f3172",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1554478766823,
+			"method": "POST",
+			"modified": 1554902185673,
+			"name": "User",
+			"parameters": [],
+			"parentId": "wrk_8b06390d2669441cafe1591af957f1a2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ baseURL  }}/register",
+			"_type": "request"
+		},
+		{
 			"_id": "req_47fc8cd84ac24790a34f3dc263104ffc",
 			"authentication": {},
 			"body": {},
@@ -124,7 +136,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1554478766773,
 			"method": "GET",
-			"modified": 1554482038129,
+			"modified": 1554773741859,
 			"name": "User All",
 			"parameters": [],
 			"parentId": "wrk_8b06390d2669441cafe1591af957f1a2",
@@ -142,7 +154,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"firstName\": \"Paullo\",\n\t\"secondName\": \"Clara\",\n\t\"userName\": \"PaulloClara\"\n}"
+				"text": "{\n\t\"firstName\": \"Paullo\"\n}"
 			},
 			"created": 1554500139795,
 			"description": "",
@@ -151,12 +163,17 @@
 					"id": "pair_dc68918385d149d0b2eee18b965f3172",
 					"name": "Content-Type",
 					"value": "application/json"
+				},
+				{
+					"id": "pair_3fbe8ec6e4cf411e9f13c4484ce6ce14",
+					"name": "token",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWRmMmQ4OWU1ZDA3MjZiMWM2NDRmNSIsImlhdCI6MTU1NDkwNDMwNCwiZXhwIjoxNTU0OTkwNzA0fQ.3lxUEHymelFi0HswBwUYJmejfZAUZXfy-eWSM-uNnq0"
 				}
 			],
 			"isPrivate": false,
 			"metaSortKey": -1554478766798,
 			"method": "PUT",
-			"modified": 1554502316624,
+			"modified": 1554904477953,
 			"name": "User",
 			"parameters": [],
 			"parentId": "wrk_8b06390d2669441cafe1591af957f1a2",
@@ -166,20 +183,34 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ baseURL  }}/user/PaulloClara4",
+			"url": "{{ baseURL  }}/user/update",
 			"_type": "request"
 		},
 		{
 			"_id": "req_61dc1e196c8140cd9c868c79b034afd5",
 			"authentication": {},
-			"body": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"password\": \"54321\"\n}"
+			},
 			"created": 1554502086316,
 			"description": "",
-			"headers": [],
+			"headers": [
+				{
+					"id": "pair_aa14008d295946a08b700a130aab4b3f",
+					"name": "token",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWRmOTE5OGEwZDljMjhkODdlOTYyMCIsImlhdCI6MTU1NDkwNTcyMSwiZXhwIjoxNTU0OTkyMTIxfQ.PNZkW3hTIbqI7hVaNrMTY1DtvRv3EHOY3MDk52v_uDE"
+				},
+				{
+					"id": "pair_817dacf8817e4e02a90734277c0ca4b8",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
 			"isPrivate": false,
 			"metaSortKey": -1554478766785.5,
 			"method": "DELETE",
-			"modified": 1554502335920,
+			"modified": 1554905901541,
 			"name": "User",
 			"parameters": [],
 			"parentId": "wrk_8b06390d2669441cafe1591af957f1a2",
@@ -189,7 +220,76 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ baseURL  }}/user/paulloclara",
+			"url": "{{ baseURL  }}/user/delete",
+			"_type": "request"
+		},
+		{
+			"_id": "req_b9d06926782747bb8dea68e887437190",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"userName\": \"PaulloClara\",\n\t\"password\": \"54321\"\n}"
+			},
+			"created": 1554669578767,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_960c570af1f64f808aff0e5015cbad99",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1554478766723,
+			"method": "POST",
+			"modified": 1554905505960,
+			"name": "User Login",
+			"parameters": [],
+			"parentId": "wrk_8b06390d2669441cafe1591af957f1a2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ baseURL  }}/login",
+			"_type": "request"
+		},
+		{
+			"_id": "req_164a63bd7c5d4622b50f86cd2a965205",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"password\": \"12345\",\n\t\"newPassword\": \"54321\"\n}"
+			},
+			"created": 1554683547361,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_72ef8d5ba7504dce82a55a83bcd0427a",
+					"name": "token",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWRmOTE5OGEwZDljMjhkODdlOTYyMCIsImlhdCI6MTU1NDkwNTM2OSwiZXhwIjoxNTU0OTkxNzY5fQ.TWxJOB8rSRrW3SSRI_d1xHuOaN1A07nOp_ulXP8rytg"
+				},
+				{
+					"id": "pair_8fac964604dd4192804fb7c733512deb",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1554407638676,
+			"method": "PUT",
+			"modified": 1554905445923,
+			"name": "User newPassword",
+			"parameters": [],
+			"parentId": "wrk_8b06390d2669441cafe1591af957f1a2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ baseURL  }}/user/update/password",
 			"_type": "request"
 		}
 	]
