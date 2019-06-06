@@ -1,16 +1,18 @@
-require('dotenv').config()
+require('dotenv').config();
 
-const express = require('express')
-const morgan = require('morgan')
+const cors = require('cors');
+const morgan = require('morgan');
+const express = require('express');
 
-const app = express()
+const app = express();
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-app.use(morgan('dev'))
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(morgan('dev'));
+app.use(cors());
 
-require('./routes')(app)
+require('./routes')(app);
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8080;
 
-app.listen(port)
+app.listen(port);
