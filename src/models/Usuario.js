@@ -1,27 +1,33 @@
 const mongoose = require('../config/mongoose');
 
 const UserSchema = mongoose.Schema({
-  firstName: {
+  nome: {
     type: String,
     required: true,
   },
-  secondName: {
+  sobrenome: {
     type: String,
     required: true,
   },
-  userName: {
+  email: {
     type: String,
     required: true,
     unique: true,
     select: false,
   },
-  password: {
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    select: false,
+  },
+  senha: {
     type: String,
     required: true,
     select: false,
   },
 });
 
-const User = mongoose.model('User', UserSchema);
+const Usuario = mongoose.model('Usuario', UserSchema);
 
-module.exports = User;
+module.exports = Usuario;
