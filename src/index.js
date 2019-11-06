@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 app.use(cors());
 
-require('./rotas')(app);
+require('./routes')(app);
 
 const porta = process.env.PORT || 8080;
 
