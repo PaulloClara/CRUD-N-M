@@ -1,9 +1,9 @@
 function home(req, res) {
   return res.send({
-    msg: '...',
+    msg: "..."
   });
 }
 
 module.exports = {
-  home,
+  home
 };

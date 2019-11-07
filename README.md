@@ -1,25 +1,17 @@
-# CRUD-N-M
+# CRUD Node
 
-## Project setup
-```
-yarn install
-```
+## Project
 
-### Hot-reloads for development
-```
-yarn run dev
-```
+- Node
+- Express
+- Mongoose
+- JWT
+- Bcrypt
 
-### Production
-```
-yarn run start
-```
+### Insomnia Configuration
 
-### Insomnia configuration file
-```
-Application>Preferences>Data>ImportData>FromFile>CRUD_Insomnia.json
-```
-### Warning
-```
-Create a database named, CRUD_N_M (in Docker or on the local machine)
-```
+`Application>Preferences>Data>ImportData>FromFile>insomnia.json`
+
+###### Warning
+
+Create a database named "crud-node" (in Docker or on the local machine)
