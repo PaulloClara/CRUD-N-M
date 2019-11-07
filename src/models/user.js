@@ -1,11 +1,11 @@
-const mongoose = require('../config/mongoose');
+const mongoose = require('../configs/mongoose');
 
 const UserSchema = mongoose.Schema({
-  nome: {
+  name: {
     type: String,
     required: true,
   },
-  sobrenome: {
+  surname: {
     type: String,
     required: true,
   },
@@ -21,13 +21,13 @@ const UserSchema = mongoose.Schema({
     unique: true,
     select: false,
   },
-  senha: {
+  password: {
     type: String,
     required: true,
     select: false,
   },
 });
 
-const Usuario = mongoose.model('Usuario', UserSchema);
+const Users = mongoose.model('User', UserSchema);
 
-module.exports = Usuario;
+module.exports = Users;

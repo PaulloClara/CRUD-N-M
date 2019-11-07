@@ -13,6 +13,6 @@ app.use(cors());
 
 require('./routes')(app);
 
-const porta = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 
-app.listen(porta);
+app.listen(port);

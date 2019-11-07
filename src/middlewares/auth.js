@@ -2,9 +2,9 @@ const jwt = require('../services/jsonwebtoken');
 
 module.exports = (req, res, next) => {
   const token = req.header('Authorization');
-  if (!token) return res.status(401).send({ erro: 'Token não encontrado' });
+  if (!token) return res.status(401).send({ error: 'Token not found' });
   const decoded = jwt.verify(token);
-  if (!decoded) return res.status(401).send({ erro: 'Token Invalido' });
+  if (!decoded) return res.status(401).send({ error: 'Invalid token' });
   req.userId = decoded.id;
   return next();
 };
