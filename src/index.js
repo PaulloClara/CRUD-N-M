@@ -15,4 +15,6 @@ require("./routes")(app);
 
 const port = process.env.PORT || 3000;
 
-app.listen(port);
+app.listen(port, () => {
+  console.log(`\n\t\tServer running in localhost:${port} 🚀`);
+});
