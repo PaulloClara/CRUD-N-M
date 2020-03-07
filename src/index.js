@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 app.use(cors());
 
-require("./routes")(app);
+require("./routes").config(app);
 
 const port = process.env.PORT || 3000;
 

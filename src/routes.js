@@ -20,4 +20,8 @@ router.delete("/user", authMiddleware, userController.delete);
 // other
 router.get("/", otherController.home);
 
-module.exports = app => app.use(router);
+module.exports = {
+  config(app) {
+    app.use(router);
+  }
+};
