@@ -54,7 +54,7 @@ module.exports = {
       return res.status(500).send({ error: "unexpected error" });
     }
   },
-  async getUser(req, res) {
+  async show(req, res) {
     const { userId: _id } = req;
 
     try {
@@ -66,7 +66,7 @@ module.exports = {
       return res.status(500).send({ error: "unexpected error" });
     }
   },
-  async getUsers(req, res) {
+  async index(req, res) {
     try {
       const users = await User.find();
 
@@ -119,7 +119,7 @@ module.exports = {
       return res.status(500).send({ error: "unexpected error" });
     }
   },
-  async delete(req, res) {
+  async destroy(req, res) {
     const { userId: _id } = req;
     const { password } = req.body;
 
