@@ -9,7 +9,7 @@ module.exports = {
 
     try {
       const search = username ? { username } : { email };
-      const user = await User.findOne(search).select("+password +username");
+      const user = await User.findOne(search).select("+password");
       if (!user) return res.status(404).send({ error: "user not found" });
 
       const passwordOk = await bcrypt.compare(password, user.password);
@@ -43,8 +43,8 @@ module.exports = {
 
       const user = await User.create(json);
 
-      user.username = undefined;
       user.email = undefined;
+      user.username = undefined;
       user.password = undefined;
 
       const token = jwt.sign(user.id);
@@ -87,7 +87,7 @@ module.exports = {
 
       await User.updateOne({ _id }, json);
 
-      const user = await User.findOne({ _id }).select("+username +email");
+      const user = await User.findOne({ _id });
       if (!user) return res.status(404).send({ error: "user not found" });
 
       return res.status(200).send(user);

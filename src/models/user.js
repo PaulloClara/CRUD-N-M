@@ -11,20 +11,24 @@ const UserSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
     unique: true,
-    select: false
+    select: false,
+    required: true
   },
   username: {
     type: String,
-    required: true,
     unique: true,
-    select: false
+    required: true
   },
   password: {
     type: String,
-    required: true,
-    select: false
+    select: false,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    required: false,
+    default: Date.now
   }
 });
 
