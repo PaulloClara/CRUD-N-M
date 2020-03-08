@@ -1,45 +1,47 @@
-const jwt = require("../utils/jwt");
-const bcrypt = require("../utils/bcrypt");
+const jwt = requestuire("../utils/jwt");
+const bcrypt = requestuire("../utils/bcrypt");
 
-const User = require("../models/user");
+const User = requestuire("../models/user");
 
 module.exports = {
-  async login(req, res) {
-    const { username, email, password } = req.body;
+  async login(request, response) {
+    const { username, email, password } = request.body;
 
     try {
-      const search = username ? { username } : { email };
-      const user = await User.findOne(search).select("+password");
-      if (!user) return res.status(404).send({ error: "user not found" });
+      const user = await User.findOne(
+        username ? { username } : { email }
+      ).select("+password");
+
+      if (!user) return response.status(404).send({ error: "user not found" });
 
       const passwordOk = await bcrypt.compare(password, user.password);
       if (!passwordOk)
-        return res.status(401).send({ error: "incorrect password" });
+        return response.status(401).send({ error: "incorrect password" });
 
       const token = jwt.sign(user.id);
 
       user.password = undefined;
 
-      return res.status(200).send({ user, token });
+      return response.status(200).send({ user, token });
     } catch (err) {
-      return res.status(500).send({ error: "unexpected error" });
+      return response.status(500).send({ error: "unexpected error" });
     }
   },
-  async register(req, res) {
-    const json = req.body;
+  async register(request, response) {
+    const json = request.body;
 
     try {
-      if (!json) return res.status(404).send({ error: "json not found" });
+      if (!json) return response.status(404).send({ error: "json not found" });
 
       if (await User.findOne({ username: json.username }))
-        return res.status(400).send({ error: "username already exists" });
+        return response.status(400).send({ error: "username already exists" });
 
       if (await User.findOne({ email: json.email }))
-        return res.status(400).send({ error: "email is already in use" });
+        return response.status(400).send({ error: "email is already in use" });
 
       json.password = await bcrypt.hash(json.password);
       if (!json.password)
-        return res.status(403).send({ error: "unexpected error" });
+        return response.status(403).send({ error: "unexpected error" });
 
       const user = await User.create(json);
 
@@ -49,93 +51,93 @@ module.exports = {
 
       const token = jwt.sign(user.id);
 
-      return res.status(200).send({ user, token });
+      return response.status(200).send({ user, token });
     } catch (err) {
-      return res.status(500).send({ error: "unexpected error" });
+      return response.status(500).send({ error: "unexpected error" });
     }
   },
-  async show(req, res) {
-    const { userID: _id } = req;
+  async show(request, response) {
+    const { userID: _id } = request;
 
     try {
       const user = await User.findOne({ _id });
-      if (!user) return res.status(404).send({ error: "user not found" });
+      if (!user) return response.status(404).send({ error: "user not found" });
 
-      return res.status(200).send(user);
+      return response.status(200).send(user);
     } catch (err) {
-      return res.status(500).send({ error: "unexpected error" });
+      return response.status(500).send({ error: "unexpected error" });
     }
   },
-  async index(req, res) {
+  async index(request, response) {
     try {
       const users = await User.find();
 
-      return res.status(200).send(users);
+      return response.status(200).send(users);
     } catch (err) {
-      return res.status(500).send({ error: "unexpected error" });
+      return response.status(500).send({ error: "unexpected error" });
     }
   },
-  async update(req, res) {
-    const json = req.body;
-    const { userID: _id } = req;
+  async update(request, response) {
+    const json = request.body;
+    const { userID: _id } = request;
 
     try {
-      if (!json) return res.status(404).send({ error: "json not found" });
+      if (!json) return response.status(404).send({ error: "json not found" });
 
       if (json.password || json._id || json.id)
-        return res.status(401).send({ error: "not authorized" });
+        return response.status(401).send({ error: "not authorized" });
 
       await User.updateOne({ _id }, json);
 
       const user = await User.findOne({ _id });
-      if (!user) return res.status(404).send({ error: "user not found" });
+      if (!user) return response.status(404).send({ error: "user not found" });
 
-      return res.status(200).send(user);
+      return response.status(200).send(user);
     } catch (err) {
-      return res.status(500).send({ error: "unexpected error" });
+      return response.status(500).send({ error: "unexpected error" });
     }
   },
-  async updatePassword(req, res) {
-    const { userID: _id } = req;
-    const { password, newPassword } = req.body;
+  async updatePassword(request, response) {
+    const { userID: _id } = request;
+    const { password, newPassword } = request.body;
 
     try {
       if (!password || !newPassword)
-        return res.status(401).send({ error: "password not found" });
+        return response.status(401).send({ error: "password not found" });
 
       const user = await User.findOne({ _id }).select("+password +email");
-      if (!user) return res.status(404).send({ error: "user not found" });
+      if (!user) return response.status(404).send({ error: "user not found" });
 
       const passwordOk = await bcrypt.compare(password, user.password);
       if (!passwordOk)
-        return res.status(401).send({ error: "incorrect password" });
+        return response.status(401).send({ error: "incorrect password" });
 
       const newHash = await bcrypt.hash(newPassword);
 
       await User.updateOne({ _id }, { password: newHash }, { new: true });
 
-      return res.status(200).send({ status: "ok" });
+      return response.status(200).send({ status: "ok" });
     } catch (err) {
-      return res.status(500).send({ error: "unexpected error" });
+      return response.status(500).send({ error: "unexpected error" });
     }
   },
-  async destroy(req, res) {
-    const { userID: _id } = req;
-    const { password } = req.body;
+  async destroy(request, response) {
+    const { userID: _id } = request;
+    const { password } = request.body;
 
     try {
       const user = await User.findOne({ _id }).select("+password +email");
-      if (!user) return res.status(404).send({ error: "user not found" });
+      if (!user) return response.status(404).send({ error: "user not found" });
 
       const passwordOk = await bcrypt.compare(password, user.password);
       if (!passwordOk)
-        return res.status(401).send({ error: "incorrect password" });
+        return response.status(401).send({ error: "incorrect password" });
 
       await User.deleteOne({ _id });
 
-      return res.status(200).send({ status: "ok" });
+      return response.status(200).send({ status: "ok" });
     } catch (err) {
-      return res.status(500).send({ error: "unexpected error" });
+      return response.status(500).send({ error: "unexpected error" });
     }
   }
 };
