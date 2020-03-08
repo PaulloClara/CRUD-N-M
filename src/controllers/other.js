@@ -1,9 +1,7 @@
-function home(req, res) {
-  return res.send({
-    msg: "..."
-  });
-}
-
 module.exports = {
-  home
+  index(request, response) {
+    return response.status(200).send({
+      message: "..."
+    });
+  }
 };

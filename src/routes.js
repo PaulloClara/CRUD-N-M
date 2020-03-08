@@ -9,15 +9,19 @@ const otherController = require("./controllers/other");
 router.post("/login", userController.login);
 router.post("/register", userController.register);
 
-router.get("/user", authMiddleware, userController.getUser);
-router.get("/users", userController.getUsers);
+router.get("/users", userController.index);
+router.get("/users/:username", authMiddleware, userController.show);
 
-router.put("/user", authMiddleware, userController.update);
-router.put("/user/password", authMiddleware, userController.updatePassword);
+router.put("/users", authMiddleware, userController.update);
+router.put("/users/password", authMiddleware, userController.updatePassword);
 
-router.delete("/user", authMiddleware, userController.delete);
+router.delete("/users", authMiddleware, userController.destroy);
 
 // other
-router.get("/", otherController.home);
+router.get("/", otherController.index);
 
-module.exports = app => app.use(router);
+module.exports = {
+  config(app) {
+    app.use(router);
+  }
+};
