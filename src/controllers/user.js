@@ -1,7 +1,7 @@
-const User = require("../models/user");
+const jwt = require("../utils/jwt");
+const bcrypt = require("../utils/bcrypt");
 
-const bcrypt = require("../services/bcrypt");
-const jwt = require("../services/jsonwebtoken");
+const User = require("../models/user");
 
 module.exports = {
   async login(req, res) {
@@ -55,7 +55,7 @@ module.exports = {
     }
   },
   async show(req, res) {
-    const { userId: _id } = req;
+    const { userID: _id } = req;
 
     try {
       const user = await User.findOne({ _id });
@@ -77,7 +77,7 @@ module.exports = {
   },
   async update(req, res) {
     const json = req.body;
-    const { userId: _id } = req;
+    const { userID: _id } = req;
 
     try {
       if (!json) return res.status(404).send({ error: "json not found" });
@@ -96,7 +96,7 @@ module.exports = {
     }
   },
   async updatePassword(req, res) {
-    const { userId: _id } = req;
+    const { userID: _id } = req;
     const { password, newPassword } = req.body;
 
     try {
@@ -120,7 +120,7 @@ module.exports = {
     }
   },
   async destroy(req, res) {
-    const { userId: _id } = req;
+    const { userID: _id } = req;
     const { password } = req.body;
 
     try {
