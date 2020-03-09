@@ -1,47 +1,44 @@
-const jwt = requestuire("../utils/jwt");
-const bcrypt = requestuire("../utils/bcrypt");
+const User = require("../models/user");
 
-const User = requestuire("../models/user");
+const jwt = require("../utils/jwt");
+const bcrypt = require("../utils/bcrypt");
 
 module.exports = {
   async login(request, response) {
-    const { username, email, password } = request.body;
-
     try {
+      const { username, email, password } = request.body;
+
       const user = await User.findOne(
         username ? { username } : { email }
       ).select("+password");
 
-      if (!user) return response.status(404).send({ error: "user not found" });
+      if (!user) throw { msg: "User not found", code: 404 };
 
-      const passwordOk = await bcrypt.compare(password, user.password);
-      if (!passwordOk)
-        return response.status(401).send({ error: "incorrect password" });
+      if (!(await bcrypt.compare(password, user.password)))
+        throw { msg: "Incorrect password", code: 401 };
 
       const token = jwt.sign(user.id);
 
       user.password = undefined;
 
-      return response.status(200).send({ user, token });
-    } catch (err) {
-      return response.status(500).send({ error: "unexpected error" });
+      response.return({ user, token }, 200);
+    } catch (error) {
+      response.returnError(error);
     }
   },
   async register(request, response) {
-    const json = request.body;
-
     try {
-      if (!json) return response.status(404).send({ error: "json not found" });
+      const json = request.body;
+      if (!json) throw { msg: "JSON not found", code: 404 };
 
       if (await User.findOne({ username: json.username }))
-        return response.status(400).send({ error: "username already exists" });
+        throw { msg: "Username already exists", code: 400 };
 
       if (await User.findOne({ email: json.email }))
-        return response.status(400).send({ error: "email is already in use" });
+        throw { msg: "Email is already in use", code: 400 };
 
       json.password = await bcrypt.hash(json.password);
-      if (!json.password)
-        return response.status(403).send({ error: "unexpected error" });
+      if (!json.password) throw "Internal error";
 
       const user = await User.create(json);
 
@@ -51,93 +48,91 @@ module.exports = {
 
       const token = jwt.sign(user.id);
 
-      return response.status(200).send({ user, token });
-    } catch (err) {
-      return response.status(500).send({ error: "unexpected error" });
+      response.return({ user, token }, 200);
+    } catch (error) {
+      response.returnError(error);
     }
   },
   async show(request, response) {
-    const { userID: _id } = request;
-
     try {
-      const user = await User.findOne({ _id });
-      if (!user) return response.status(404).send({ error: "user not found" });
+      const { userID: _id } = request;
 
-      return response.status(200).send(user);
-    } catch (err) {
-      return response.status(500).send({ error: "unexpected error" });
+      const user = await User.findOne({ _id });
+      if (!user) throw { msg: "User not found", code: 404 };
+
+      response.return(user, 200);
+    } catch (error) {
+      response.returnError(error);
     }
   },
   async index(request, response) {
     try {
       const users = await User.find();
 
-      return response.status(200).send(users);
-    } catch (err) {
-      return response.status(500).send({ error: "unexpected error" });
+      response.return(users, 200);
+    } catch (error) {
+      response.returnError(error);
     }
   },
   async update(request, response) {
-    const json = request.body;
-    const { userID: _id } = request;
-
     try {
-      if (!json) return response.status(404).send({ error: "json not found" });
+      const json = request.body;
+      const { userID: _id } = request;
+
+      if (!json) throw { msg: "JSON not found", code: 404 };
 
       if (json.password || json._id || json.id)
-        return response.status(401).send({ error: "not authorized" });
+        throw { msg: "Unauthorized", code: 401 };
 
       await User.updateOne({ _id }, json);
 
       const user = await User.findOne({ _id });
-      if (!user) return response.status(404).send({ error: "user not found" });
+      if (!user) throw { msg: "User not found", code: 404 };
 
-      return response.status(200).send(user);
-    } catch (err) {
-      return response.status(500).send({ error: "unexpected error" });
+      response.return(user, 200);
+    } catch (error) {
+      response.returnError(error);
     }
   },
   async updatePassword(request, response) {
-    const { userID: _id } = request;
-    const { password, newPassword } = request.body;
-
     try {
+      const { userID: _id } = request;
+      const { password, newPassword } = request.body;
+
       if (!password || !newPassword)
-        return response.status(401).send({ error: "password not found" });
+        throw { msg: "Password not found", code: 401 };
 
-      const user = await User.findOne({ _id }).select("+password +email");
-      if (!user) return response.status(404).send({ error: "user not found" });
+      const user = await User.findOne({ _id }).select("+password");
+      if (!user) throw { msg: "User not found", code: 404 };
 
-      const passwordOk = await bcrypt.compare(password, user.password);
-      if (!passwordOk)
-        return response.status(401).send({ error: "incorrect password" });
+      if (!(await bcrypt.compare(password, user.password)))
+        throw { msg: "Incorrect password", code: 401 };
 
       const newHash = await bcrypt.hash(newPassword);
 
       await User.updateOne({ _id }, { password: newHash }, { new: true });
 
-      return response.status(200).send({ status: "ok" });
-    } catch (err) {
-      return response.status(500).send({ error: "unexpected error" });
+      response.return({ status: "OK" }, 200);
+    } catch (error) {
+      response.returnError(error);
     }
   },
   async destroy(request, response) {
-    const { userID: _id } = request;
-    const { password } = request.body;
-
     try {
-      const user = await User.findOne({ _id }).select("+password +email");
-      if (!user) return response.status(404).send({ error: "user not found" });
+      const { userID: _id } = request;
+      const { password } = request.body;
 
-      const passwordOk = await bcrypt.compare(password, user.password);
-      if (!passwordOk)
-        return response.status(401).send({ error: "incorrect password" });
+      const user = await User.findOne({ _id }).select("+password");
+      if (!user) throw { msg: "User not found", code: 404 };
+
+      if (!(await bcrypt.compare(password, user.password)))
+        throw { msg: "Incorrect password", code: 401 };
 
       await User.deleteOne({ _id });
 
-      return response.status(200).send({ status: "ok" });
-    } catch (err) {
-      return response.status(500).send({ error: "unexpected error" });
+      response.return({ status: "OK" }, 200);
+    } catch (error) {
+      response.returnError(error);
     }
   }
 };

@@ -1,16 +1,20 @@
 const jwt = require("../utils/jwt");
 
-module.exports = (req, res, next) => {
-  const auth = req.header("Authorization");
-  if (!auth) return res.status(401).send({ error: "token not found" });
+module.exports = (request, response, next) => {
+  try {
+    const auth = request.header("Authorization");
+    if (!auth) throw { msg: "Token not found", code: 401 };
 
-  const token = auth.split(" ")[1];
-  if (!token) return res.status(401).send({ error: "malformed token" });
+    const token = auth.split(" ")[1];
+    if (!token) throw { msg: "Malformed token", code: 401 };
 
-  const decoded = jwt.verify(token);
-  if (!decoded) return res.status(401).send({ error: "invalid token" });
+    const decoded = jwt.verify(token);
+    if (!decoded) throw { msg: "Invalid token", code: 401 };
 
-  req.userID = decoded.id;
+    request.userID = decoded.id;
 
-  return next();
+    next();
+  } catch (error) {
+    response.returnError(error);
+  }
 };
