@@ -5,6 +5,8 @@ const authMiddleware = require("./middlewares/auth");
 const userController = require("./controllers/user");
 const otherController = require("./controllers/other");
 
+router.use(require("./middlewares/handleRequest"));
+
 // user
 router.post("/login", userController.login);
 router.post("/register", userController.register);
